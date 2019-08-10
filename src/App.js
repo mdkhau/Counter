@@ -1,26 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
+import Counter from './components/counter';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+//create state of counter and event
+    constructor(props){
+        super();
+        this.state= {
+            count:0,
+            isEven:true
+
+        }
+    }
+//incremnet counter on click
+    incrementCounter= () => {
+        this.setState({
+            count:this.state.count+1
+        })
+        this.isEven()
+    }
+//clear counter on button click
+    clearCounter= () => {
+        this.setState({
+            count:this.state.count=0
+        })
+        this.isEven()
+    }
+isEven=()=>{
+
+
+            this.setState({
+                isEven:this.state.count % 2 == 0
+            })
+
 }
 
-export default App;
+    render() {
+        let { count } =this.state
+        return (
+          //html rendering for the view
+            <div>
+        <div onClick={this.incrementCounter} id="container" >
+            <div class="border" className={this.state.isEven ? 'white' : 'border'}>
+            <div class="item">{count}</div>
+            </div>
+
+            </div>
+        <Counter
+        title = { "Reset" }
+        task = { this.clearCounter }
+        />
+        </div>
+    );
+    }
+
+}
